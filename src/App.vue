@@ -45,7 +45,7 @@
     </v-toolbar>
 
     <v-content>
-      <HelloWorld/>
+      <Animals/>
     </v-content>
     <v-footer app></v-footer>
   </v-app>
@@ -53,11 +53,13 @@
 
 <script>
 import HelloWorld from './components/HelloWorld'
+import Animals from './components/Animals'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    Animals
   },
   data () {
     return {
