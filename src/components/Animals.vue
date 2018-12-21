@@ -51,9 +51,14 @@
              <v-list-tile-sub-title>{{ item.name }}, {{ item.type }}, {{ item.birthday }}, {{ item.gender }}, {{ item.weight }}, {{ item.alive }}</v-list-tile-sub-title>
            </v-list-tile-content>
            <v-list-tile-action>
-             <v-btn icon ripple>
-               <v-icon color="grey lighten-1">info</v-icon>
-             </v-btn>
+             <v-flex>
+               <v-btn icon ripple>
+                 <v-icon color="black">delete</v-icon>
+               </v-btn>
+               <v-btn icon ripple>
+                 <v-icon color="black">edit</v-icon>
+               </v-btn>
+             </v-flex>
            </v-list-tile-action>
          </v-list-tile>
          </v-list>
