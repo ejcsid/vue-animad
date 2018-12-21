@@ -16,14 +16,14 @@
       <v-container grid-list-md text-xs-center>
         <v-layout row wrap>
           <v-flex xs8>
-            <v-text-field
+            <v-text-field id="searchText"
               regular
               placeholder="Search"
               prepend-icon="search"
               clearable
               @input= "doSearch"
               :success-messages=resultsText
-              v-model="inputValue"
+              v-model="searchText"
             >
           </v-text-field>
           </v-flex>
@@ -38,13 +38,26 @@
             </v-btn>
           </v-flex>
         </v-layout>
-        <v-layout row wrap>
-          <v-flex xs12>
-           <v-card dark color="purple">
-             <v-card-text>xs10 offset-xs1</v-card-text>
-           </v-card>
-          </v-flex>
-        </v-layout>
+        <v-flex xs12>
+         <v-list two-line>
+           <v-list-tile
+             v-for="item in items"
+           >
+           <v-list-tile-avatar>
+             <v-icon>pets</v-icon>
+           </v-list-tile-avatar>
+           <v-list-tile-content>
+             <v-list-tile-title>{{ item.name }}, {{ item.type }}, {{ item.gender }}</v-list-tile-title>
+             <v-list-tile-sub-title>{{ item.name }}, {{ item.type }}, {{ item.birthday }}, {{ item.gender }}, {{ item.weight }}, {{ item.alive }}</v-list-tile-sub-title>
+           </v-list-tile-content>
+           <v-list-tile-action>
+             <v-btn icon ripple>
+               <v-icon color="grey lighten-1">info</v-icon>
+             </v-btn>
+           </v-list-tile-action>
+         </v-list-tile>
+         </v-list>
+       </v-flex>
       </v-container>
     </v-layout>
   </v-container>
@@ -57,19 +70,23 @@
         search: "abc",
         searchCount: 0,
         resultsText: "",
-        searchText: "",
-        inputValue: null
+        searchText: null,
+        items: [
+          { name: "Ben", type: "Elefant", birthday: "01.01.2011", gender: "male", weight: 1234, alive: true},
+          { name: "Berta", type: "Giraffe", birthday: "01.03.2016", gender: "female", weight: 721, alive: true}
+        ]
       }
     },
     methods: {
       doSearch: function() {
+        console.log("doSearch")
         // TODO filter list/table rows and show correct results text
-        this.inputValue === null ? this.searchCount = 0 :
-          this.searchCount < 3 ? this.searchCount++ : this.searchCount = 0
-        this.inputValue === null ? this.resultsText = "" :
-          this.searchCount === 0 ? this.resultsText = "No Data found" : this.resultsText = this.searchCount+" rows found"
 
-        console.log("resultsText: "+this.resultsText)
+        // searchText is null if clear-Button in search-Filed was clicked
+        this.searchText === null ? this.searchCount = 0 :
+          this.searchCount < 3 ? this.searchCount++ : this.searchCount = 0
+        this.searchText === null ? this.resultsText = "" :
+          this.searchCount === 0 ? this.resultsText = "No Data found" : this.resultsText = this.searchCount+" rows found"
       },
       doNew: function() {
         console.log("doNew")
