@@ -16,7 +16,7 @@
 
       <v-list dense class="pt-0">
         <v-list-tile
-          v-for="item in items"
+          v-for="item in menuItems"
           :key="item.title"
           :to="item.link"
           @click=""
@@ -54,18 +54,12 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-import Animals from './components/Animals'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld,
-    Animals
-  },
   data () {
     return {
-      items: [
+      menuItems: [
         {title: "Animals", icon: "pets", link: "/animals"},
         {title: "Keepers", icon: "face", link: "/keepers"},
         {title: "Enclosures", icon: "account_balance", link: "/enclosures"}

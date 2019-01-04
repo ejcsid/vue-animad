@@ -47,8 +47,8 @@
              <v-icon>account_balance</v-icon>
            </v-list-tile-avatar>
            <v-list-tile-content>
-             <v-list-tile-title>{{ item.name }}, {{ item.type }}, {{ item.gender }}</v-list-tile-title>
-             <v-list-tile-sub-title>{{ item.name }}, {{ item.type }}, {{ item.birthday }}, {{ item.gender }}, {{ item.weight }}, {{ item.alive }}</v-list-tile-sub-title>
+             <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+             <v-list-tile-sub-title>{{ item.name }}, {{ item.type }}, {{ item.square }}</v-list-tile-sub-title>
            </v-list-tile-content>
            <v-list-tile-action>
              <v-flex>
@@ -77,8 +77,8 @@
         resultsText: "",
         searchText: null,
         items: [
-          { name: "Ben", type: "Elefant", birthday: "01.01.2011", gender: "male", weight: 1234, alive: true},
-          { name: "Berta", type: "Giraffe", birthday: "01.03.2016", gender: "female", weight: 721, alive: true}
+          { name: "Elefantenparadies", type: "innen_aussen", square: "90" },
+          { name: "Savanne", type: "aussen", square: "60"}
         ]
       }
     },
