@@ -4,6 +4,8 @@ import './plugins/vuetify'
 import App from './App.vue'
 
 import Animals from './components/Animals.vue'
+import AnimalCreate from './components/animals/AnimalCreate.vue'
+import AnimalDetail from './components/animals/AnimalDetail.vue'
 import Keepers from './components/Keepers.vue'
 import Enclosures from './components/Enclosures.vue'
 import Home from './components/Home.vue'
@@ -17,6 +19,8 @@ const router = new VueRouter({
   routes: [
     { path: '/', component: Home },
     { path: '/animals', component: Animals },
+    { path: '/animals/create', name: 'animals-create', component: AnimalCreate },
+    { path: '/animals/:id/detail', name: 'animals-detail', component: AnimalDetail },
     { path: '/keepers', component: Keepers },
     { path: '/enclosures', component: Enclosures}
   ]

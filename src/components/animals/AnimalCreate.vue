@@ -10,34 +10,10 @@
       </v-flex>
       <v-flex mb-4>
         <h1 class="headline font-weight-bold mb-3">
-          Übersicht Animals
+          Create Animal
         </h1>
       </v-flex>
       <v-container grid-list-md text-xs-center>
-        <v-layout row wrap>
-          <v-flex xs8>
-            <v-text-field id="searchText"
-              regular
-              placeholder="Search"
-              prepend-icon="search"
-              clearable
-              @input= "doSearch"
-              :success-messages=resultsText
-              v-model="searchText"
-            >
-          </v-text-field>
-          </v-flex>
-          <v-flex xs4>
-            <v-btn @click="doNew()">
-              New
-              <v-icon>add_circle</v-icon>
-            </v-btn>
-            <v-btn @click="doDelete()">
-              Delete
-              <v-icon>delete</v-icon>
-            </v-btn>
-          </v-flex>
-        </v-layout>
         <v-flex xs12>
          <v-list two-line>
            <v-list-tile
@@ -52,10 +28,10 @@
            </v-list-tile-content>
            <v-list-tile-action>
              <v-flex>
-               <v-btn icon ripple @click="doDelete(item.name)">
+               <v-btn icon ripple>
                  <v-icon color="black">delete</v-icon>
                </v-btn>
-               <v-btn icon ripple @click="doDetail(item.name)">
+               <v-btn icon ripple>
                  <v-icon color="black">edit</v-icon>
                </v-btn>
              </v-flex>
@@ -94,13 +70,10 @@
           this.searchCount === 0 ? this.resultsText = "No Data found" : this.resultsText = this.searchCount+" rows found"
       },
       doNew: function() {
-        this.$router.push({name: 'animals-create'})
+        console.log("doNew")
       },
-      doDelete: function(animalsId) {
-        console.log("doDelete "+animalsId)
-      },
-      doDetail: function(animalsId) {
-        this.$router.push({name: 'animals-detail', params: {id: animalsId}})
+      doDelete: function() {
+        console.log("doDelete")
       }
     }
   }
