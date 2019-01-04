@@ -18,6 +18,7 @@
         <v-list-tile
           v-for="item in items"
           :key="item.title"
+          :to="item.link"
           @click=""
         >
           <v-list-tile-action>
@@ -25,7 +26,7 @@
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title> {{ item.title }}</v-list-tile-title>
+            {{ item.title }}
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -45,7 +46,8 @@
     </v-toolbar>
 
     <v-content>
-      <Animals/>
+      <router-view/>
+<!--      <Animals/>-->
     </v-content>
     <v-footer app></v-footer>
   </v-app>
@@ -64,9 +66,9 @@ export default {
   data () {
     return {
       items: [
-        {title: "Animals", icon: "pets"},
-        {title: "Keepers", icon: "face"},
-        {title: "Enclosures", icon: "account_balance"}
+        {title: "Animals", icon: "pets", link: "/animals"},
+        {title: "Keepers", icon: "face", link: "/keepers"},
+        {title: "Enclosures", icon: "account_balance", link: "/enclosures"}
 
       ]
 
