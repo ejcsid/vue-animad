@@ -7,10 +7,34 @@
     >
       <v-flex mb-4>
         <h1 class="headline font-weight-bold mb-3">
-          Create Animal
+          Übersicht Animals
         </h1>
       </v-flex>
       <v-container grid-list-md text-xs-center>
+        <v-layout row wrap>
+          <v-flex xs8>
+            <v-text-field id="searchText"
+              regular
+              placeholder="Search"
+              prepend-icon="search"
+              clearable
+              @input= "doSearch"
+              :success-messages=resultsText
+              v-model="searchText"
+            >
+          </v-text-field>
+          </v-flex>
+          <v-flex xs4>
+            <v-btn @click="doNew()">
+              New
+              <v-icon>add_circle</v-icon>
+            </v-btn>
+            <v-btn @click="doDelete()">
+              Delete
+              <v-icon>delete</v-icon>
+            </v-btn>
+          </v-flex>
+        </v-layout>
         <v-flex xs12>
          <v-list two-line>
            <v-list-tile
@@ -25,10 +49,10 @@
            </v-list-tile-content>
            <v-list-tile-action>
              <v-flex>
-               <v-btn icon ripple>
+               <v-btn icon ripple @click="doDelete(item.name)">
                  <v-icon color="black">delete</v-icon>
                </v-btn>
-               <v-btn icon ripple>
+               <v-btn icon ripple @click="doDetail(item)">
                  <v-icon color="black">edit</v-icon>
                </v-btn>
              </v-flex>
@@ -50,8 +74,8 @@
         resultsText: "",
         searchText: null,
         items: [
-          { name: "Ben", type: "Elefant", birthday: "01.01.2011", gender: "male", weight: 1234, alive: true},
-          { name: "Berta", type: "Giraffe", birthday: "01.03.2016", gender: "female", weight: 721, alive: true}
+          { name: "Ben", type: "Elefant", birthday: "2011-01-01", gender: "male", weight: 1234, alive: true},
+          { name: "Berta", type: "Giraffe", birthday: "2016-03-02", gender: "female", weight: 721, alive: false}
         ]
       }
     },
@@ -67,10 +91,13 @@
           this.searchCount === 0 ? this.resultsText = "No Data found" : this.resultsText = this.searchCount+" rows found"
       },
       doNew: function() {
-        console.log("doNew")
+        this.$router.push({name: 'animals-create'})
       },
-      doDelete: function() {
-        console.log("doDelete")
+      doDelete: function(animalsId) {
+        console.log("doDelete "+animalsId)
+      },
+      doDetail: function(animal) {
+        this.$router.push({name: 'animals-detail', params: {id: 1, item: animal }})
       }
     }
   }
