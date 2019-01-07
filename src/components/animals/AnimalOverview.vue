@@ -107,6 +107,7 @@
       },
       doDelete: function(animal) {
         console.log("doDelete "+animal.name+", "+"animal.type")
+        this.dialog = false
       },
       doDetail: function(animal) {
         this.$router.push({name: 'animals-detail', params: {id: 1, item: animal }})
