@@ -11,7 +11,7 @@
         </h1>
       </v-flex>
       <v-container grid-list-md text-xs-center>
-        <v-layout row wrap>
+          <v-layout row wrap>
           <v-flex xs8>
             <v-text-field id="searchText"
               regular
@@ -49,9 +49,20 @@
            </v-list-tile-content>
            <v-list-tile-action>
              <v-flex>
-               <v-btn icon ripple @click="doDelete(item.name)">
-                 <v-icon color="black">delete</v-icon>
-               </v-btn>
+               <v-dialog v-model="dialog" persistent max-width="290">
+                 <v-btn slot="activator" icon>
+                   <v-icon color="black">delete</v-icon>
+                 </v-btn>
+                 <v-card>
+                   <v-card-title class="headline">Delete Animal?</v-card-title>
+                   <v-card-text>Do you really want to delete animal "{{ item.name }}, {{ item.type }}"</v-card-text>
+                   <v-card-actions>
+                     <v-spacer></v-spacer>
+                     <v-btn @click="doDelete(item)">Yes</v-btn>
+                     <v-btn @click="dialog = false">No</v-btn>
+                   </v-card-actions>
+                 </v-card>
+               </v-dialog>
                <v-btn icon ripple @click="doDetail(item)">
                  <v-icon color="black">edit</v-icon>
                </v-btn>
@@ -76,7 +87,8 @@
         items: [
           { name: "Ben", type: "Elefant", birthday: "2011-01-01", gender: "male", weight: 1234, alive: true},
           { name: "Berta", type: "Giraffe", birthday: "2016-03-02", gender: "female", weight: 721, alive: false}
-        ]
+        ],
+        dialog: false
       }
     },
     methods: {
@@ -93,8 +105,8 @@
       doNew: function() {
         this.$router.push({name: 'animals-create'})
       },
-      doDelete: function(animalsId) {
-        console.log("doDelete "+animalsId)
+      doDelete: function(animal) {
+        console.log("doDelete "+animal.name+", "+"animal.type")
       },
       doDetail: function(animal) {
         this.$router.push({name: 'animals-detail', params: {id: 1, item: animal }})
