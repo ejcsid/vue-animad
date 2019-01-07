@@ -75,6 +75,71 @@
             v-model="animal.alive"
             >
           </v-checkbox>
+
+        </v-form>
+        <v-form ref="dialog" lazy-validation>
+          <v-layout wrap>
+            <v-text-field
+              label="Search Keeper">
+            </v-text-field>
+            <v-dialog v-model="dialog" ref="dialog" persistent max-width="600px">
+              <v-btn slot="activator" icon >
+                <v-icon>add_circle</v-icon>
+              </v-btn>
+              <v-card>
+                <v-card-title>
+                  <span class="headline">Add Keeper</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container grid-list-md>
+                    <v-layout wrap>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field label="First name*" v-model="createdKeeper.firstname" required :rules="nameRules"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field
+                          label="Last name*"
+                          hint="Keeper's lastname mandatory with min. 2 letters"
+                          persistent-hint
+                          v-model="createdKeeper.lastname"
+                          required
+                          :rules="nameRules"
+                        ></v-text-field>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                  <small>*indicates required field</small>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
+                  <v-btn color="blue darken-1" flat @click="createKeeper()">Save</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-layout>
+        </v-form>
+        <v-form>
+
+        <v-flex xs12>
+         <v-list>
+           <v-list-tile
+             v-for="item in keepers"
+           >
+           <v-list-tile-content>
+             <v-list-tile-title>{{ item.firstname }}, {{ item.lastname }}</v-list-tile-title>
+           </v-list-tile-content>
+           <v-list-tile-action>
+             <v-flex>
+               <v-btn icon ripple>
+                 <v-icon color="black">delete</v-icon>
+               </v-btn>
+             </v-flex>
+           </v-list-tile-action>
+         </v-list-tile>
+         </v-list>
+       </v-flex>
+
         </v-form>
         <v-flex mb-4>
           <v-btn @click="doSave()">
@@ -91,7 +156,7 @@
            :value="saveSuccess"
            type="success"
          >
-           Animal successfully saved.
+           Keeper successfully saved.
          </v-alert>
          <v-alert
            :value="validateError"
@@ -119,8 +184,14 @@
         rules: {
           required: value => !!value || 'Required field.',
         },
+        keepers: [],
+        createdKeeper: {
+          firstname: "",
+          lastname: ""
+        },
         saveSuccess: false,
-        validateError: false
+        validateError: false,
+        dialog: false
       }
     },
     methods: {
@@ -129,9 +200,7 @@
       },
       doSave: function() {
         if (this.$refs.form.validate()) {
-          this.saveSuccess = true
           this.validateError = false
-          window.setTimeout(3600)
           this.$router.push('/animals')
         }
         else {
@@ -141,6 +210,14 @@
       },
       doSaveBirthday: function(date) {
         this.$refs.menu.save(date)
+      },
+      createKeeper() {
+        if (this.$refs.dialog.validate()) {
+          this.keepers.push(this.createdKeeper)
+          this.createdKeeper = { firstname: "", lastname: ""}
+          this.dialog = false
+          this.saveSuccess = true
+        }
       }
     }
   }
