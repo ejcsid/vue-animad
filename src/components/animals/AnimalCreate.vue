@@ -1,76 +1,69 @@
 <template>
   <v-container>
-    <v-layout
-      align-start
-      justify-start
-      column
-    >
-      <v-flex mb-4>
-        <h1 class="headline font-weight-bold mb-3">
-          Create Animal
-        </h1>
+    <v-layout>
+      <v-flex xs12 p>
+        <v-card >
+          <v-card-title>
+            <BaseHeader icon='pets' title='Create Animal'/>
+            </v-card-title>
+          <v-card-text>
+            <v-form
+              ref="form"
+              lazy-validation
+            >
+              <AnimalFormContent v-bind:nameRules='nameRules' v-bind:rules='rules' v-bind:types='types' v-bind:gender='gender' v-bind:animal='animal'/>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <BaseActions v-on:doSave="doSave" v-on:doCancel="doCancel"/>
+          </v-card-actions>
+        </v-card>
       </v-flex>
-      <v-container grid-list-md text-xs-center>
-        <v-flex xs12>
-         <v-list two-line>
-           <v-list-tile
-             v-for="item in items"
-           >
-           <v-list-tile-avatar>
-             <v-icon>pets</v-icon>
-           </v-list-tile-avatar>
-           <v-list-tile-content>
-             <v-list-tile-title>{{ item.name }}, {{ item.type }}, {{ item.gender }}</v-list-tile-title>
-             <v-list-tile-sub-title>{{ item.name }}, {{ item.type }}, {{ item.birthday }}, {{ item.gender }}, {{ item.weight }}, {{ item.alive }}</v-list-tile-sub-title>
-           </v-list-tile-content>
-           <v-list-tile-action>
-             <v-flex>
-               <v-btn icon ripple>
-                 <v-icon color="black">delete</v-icon>
-               </v-btn>
-               <v-btn icon ripple>
-                 <v-icon color="black">edit</v-icon>
-               </v-btn>
-             </v-flex>
-           </v-list-tile-action>
-         </v-list-tile>
-         </v-list>
-       </v-flex>
-      </v-container>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+  import BaseHeader from '../commons/BaseHeader'
+  import BaseActions from '../commons/BaseActions'
+  import AnimalFormContent from './AnimalFormContent'
+
   export default {
+    components: {
+      AnimalFormContent,
+      BaseHeader,
+      BaseActions,
+    },
     data () {
       return {
-        search: "abc",
-        searchCount: 0,
-        resultsText: "",
-        searchText: null,
-        items: [
-          { name: "Ben", type: "Elefant", birthday: "01.01.2011", gender: "male", weight: 1234, alive: true},
-          { name: "Berta", type: "Giraffe", birthday: "01.03.2016", gender: "female", weight: 721, alive: true}
-        ]
+        animal: { name: "", type: "", birthday: new Date().toISOString().substr(0, 10), gender: "", weight: 0, alive: true},
+        saveSuccess: false,
+        validateError: false,
+        nameRules: [
+          v => !!v || 'Name is required',
+          v => (v && v.length > 2) || 'Name must be more than 2 characters'
+        ],
+        rules: {
+          required: value => !!value || 'Required field.',
+        },
+        types: [ "Elefant", "Giraffe", "Dog", "Cat"],
+        gender: [ "female", "male", "diverse" ],
       }
     },
     methods: {
-      doSearch: function() {
-        console.log("doSearch")
-        // TODO filter list/table rows and show correct results text
-
-        // searchText is null if clear-Button in search-Filed was clicked
-        this.searchText === null ? this.searchCount = 0 :
-          this.searchCount < 3 ? this.searchCount++ : this.searchCount = 0
-        this.searchText === null ? this.resultsText = "" :
-          this.searchCount === 0 ? this.resultsText = "No Data found" : this.resultsText = this.searchCount+" rows found"
+      doSave: function() {
+        if (this.$refs.form.validate()) {
+          this.validateError = false
+          this.$router.push('/animals')
+        }
+        else {
+          this.saveSuccess = false
+          this.validateError = true
+        }
       },
-      doNew: function() {
-        console.log("doNew")
-      },
-      doDelete: function() {
-        console.log("doDelete")
+      doCancel: function() {
+        console.log("doCancel")
+        this.$router.push('/animals')
       }
     }
   }

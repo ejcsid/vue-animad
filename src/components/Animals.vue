@@ -5,9 +5,6 @@
       justify-start
       column
     >
-      <v-flex mb-4>
-        <v-icon large>pets</v-icon>
-      </v-flex>
       <router-view/>
       <v-flex mb-4>
         <v-alert

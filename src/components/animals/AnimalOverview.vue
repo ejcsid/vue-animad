@@ -5,11 +5,7 @@
       justify-start
       column
     >
-      <v-flex mb-4>
-        <h1 class="headline font-weight-bold mb-3">
-          Übersicht Animals
-        </h1>
-      </v-flex>
+      <BaseHeader icon='pets' title='Overview Animals'/>
       <v-container grid-list-md text-xs-center>
           <v-layout row wrap>
           <v-flex xs8>
@@ -77,7 +73,11 @@
 </template>
 
 <script>
+  import BaseHeader from '../commons/BaseHeader'
   export default {
+    components: {
+      BaseHeader,
+    },
     data () {
       return {
         search: "abc",
