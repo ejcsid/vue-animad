@@ -47,7 +47,6 @@
 
     <v-content>
       <router-view/>
-<!--      <Animals/>-->
     </v-content>
     <v-footer app></v-footer>
   </v-app>
