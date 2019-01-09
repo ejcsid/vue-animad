@@ -26,6 +26,7 @@
 <script>
   import BaseHeader from '../commons/BaseHeader'
   import BaseFormActions from '../commons/BaseFormActions'
+  import BaseFormValidation from '../commons/BaseFormValidation'
   import AnimalFormContent from './AnimalFormContent'
 
   export default {
@@ -33,19 +34,13 @@
       AnimalFormContent,
       BaseHeader,
       BaseFormActions,
+      BaseFormValidation
     },
+    extends: BaseFormValidation,
     data () {
       return {
         animal: { name: "", type: "", birthday: new Date().toISOString().substr(0, 10), gender: "", weight: 0, alive: true},
         saveSuccess: false,
-        validateError: false,
-        nameRules: [
-          v => !!v || 'Name is required',
-          v => (v && v.length > 2) || 'Name must be more than 2 characters'
-        ],
-        rules: {
-          required: value => !!value || 'Required field.',
-        },
         types: [ "Elefant", "Giraffe", "Dog", "Cat"],
         gender: [ "female", "male", "diverse" ],
       }

@@ -27,6 +27,7 @@
   import BaseHeader from '../commons/BaseHeader'
   import BaseFormActions from '../commons/BaseFormActions'
   import AnimalFormContent from './AnimalFormContent'
+  import BaseFormValidation from '../commons/BaseFormValidation'
 
   export default {
     components: {
@@ -34,19 +35,12 @@
       BaseHeader,
       BaseFormActions,
     },
+    extends: BaseFormValidation,
     data () {
       return {
         animal: this.$route.params.item,
         title: "Edit Animal "+this.$route.params.item.name,
         saveSuccess: false,
-        validateError: false,
-        nameRules: [
-          v => !!v || 'Name is required',
-          v => (v && v.length > 2) || 'Name must be more than 2 characters'
-        ],
-        rules: {
-          required: value => !!value || 'Required field.',
-        },
         types: [ "Elefant", "Giraffe", "Dog", "Cat"],
         gender: [ "female", "male", "diverse" ],
       }

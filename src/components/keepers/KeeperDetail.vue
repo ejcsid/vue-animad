@@ -26,6 +26,7 @@
 <script>
   import BaseHeader from '../commons/BaseHeader'
   import BaseFormActions from '../commons/BaseFormActions'
+  import BaseFormValidation from '../commons/BaseFormValidation'
   import KeeperFormContent from './KeeperFormContent'
 
   export default {
@@ -33,7 +34,9 @@
       KeeperFormContent,
       BaseHeader,
       BaseFormActions,
+      BaseFormValidation
     },
+    extends: BaseFormValidation,
     data () {
       return {
         keeper: this.$route.params.item,
