@@ -28,7 +28,7 @@
               routerDetail='keepers-detail'
               deleteHeader='Delete Keeper?'
               v-on:doDelete='doDelete(item)'>
-                Do you really want delete Keeper {{item.firstname}} {{item.lastname}} ?
+                {{$vuetify.t('$vuetify.deleteDialog.deleteQuestion', [ item.lastname ])}}
             </BaseListActions>
            </v-list-tile-action>
          </v-list-tile>
