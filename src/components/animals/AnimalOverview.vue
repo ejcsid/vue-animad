@@ -23,25 +23,13 @@
              <v-list-tile-sub-title>{{ item.name }}, {{ item.type }}, {{ item.birthday }}, {{ item.gender }}, {{ item.weight }}, {{ item.alive }}</v-list-tile-sub-title>
            </v-list-tile-content>
            <v-list-tile-action>
-             <v-flex>
-               <v-dialog v-model="dialog" persistent max-width="290">
-                 <v-btn slot="activator" icon>
-                   <v-icon color="black">delete</v-icon>
-                 </v-btn>
-                 <v-card>
-                   <v-card-title class="headline">Delete Animal?</v-card-title>
-                   <v-card-text>Do you really want to delete animal "{{ item.name }}, {{ item.type }}"</v-card-text>
-                   <v-card-actions>
-                     <v-spacer></v-spacer>
-                     <v-btn @click="doDelete(item)">Yes</v-btn>
-                     <v-btn @click="dialog = false">No</v-btn>
-                   </v-card-actions>
-                 </v-card>
-               </v-dialog>
-               <v-btn icon ripple @click="doDetail(item)">
-                 <v-icon color="black">edit</v-icon>
-               </v-btn>
-             </v-flex>
+            <BaseListActions
+              v-bind:item='item'
+              routerDetail='animals-detail'
+              deleteHeader='Delete Animal?'
+              v-on:doDelete='doDelete(item)'>
+                Do you really want delete Animal {{item.type}} {{item.name}} ?
+            </BaseListActions>
            </v-list-tile-action>
          </v-list-tile>
          </v-list>
@@ -54,37 +42,38 @@
 <script>
   import BaseHeader from '../commons/BaseHeader'
   import BaseListHeader from '../commons/BaseListHeader'
+  import BaseListActions from '../commons/BaseListActions'
 
   export default {
     components: {
       BaseHeader,
-      BaseListHeader
+      BaseListHeader,
+      BaseListActions,
     },
     data () {
       return {
         searchCount: 0,
         searchText: "",
         items: [
-          { name: "Ben", type: "Elefant", birthday: "2011-01-01", gender: "male", weight: 1234, alive: true},
-          { name: "Berta", type: "Giraffe", birthday: "2016-03-02", gender: "female", weight: 721, alive: false}
+          { id: 1, name: "Ben", type: "Elefant", birthday: "2011-01-01", gender: "male", weight: 1234, alive: true},
+          { id: 2, name: "Berta", type: "Giraffe", birthday: "2016-03-02", gender: "female", weight: 721, alive: false},
+          { id: 3, name: "Bello", type: "Dog", birthday: "2017-03-02", gender: "male", weight: 7, alive: true}
         ],
         dialog: false
       }
     },
     computed: {
       filteredItems: function() {
-        console.log(this.searchText)
-
         return this.items.filter(item =>  item.name.toLowerCase().includes(this.searchText))
       },
       resultsText: function() {
-        if (this.filteredItems.length === 0) {
+        if (this.filterdItems === undefined || this.filteredItems.length === 0) {
           return "No Data found."
         }
         else {
           return this.filteredItems.length+" rows found."
         }
-      }
+      },
     },
     methods: {
       doSearch: function(searchText) {
@@ -94,7 +83,8 @@
         this.$router.push({name: 'animals-create'})
       },
       doDelete: function(animal) {
-        console.log("doDelete "+animal.name+", "+"animal.type")
+        var idx = this.items.indexOf(animal, 0)
+        this.items.splice(idx, 1)
         this.dialog = false
       },
       doDetail: function(animal) {

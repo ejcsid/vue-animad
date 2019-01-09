@@ -15,7 +15,7 @@
             </v-form>
           </v-card-text>
           <v-card-actions>
-            <BaseActions v-on:doSave="doSave" v-on:doCancel="doCancel"/>
+            <BaseFormActions v-on:doSave="doSave" v-on:doCancel="doCancel"/>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -25,14 +25,14 @@
 
 <script>
   import BaseHeader from '../commons/BaseHeader'
-  import BaseActions from '../commons/BaseActions'
+  import BaseFormActions from '../commons/BaseFormActions'
   import AnimalFormContent from './AnimalFormContent'
 
   export default {
     components: {
       AnimalFormContent,
       BaseHeader,
-      BaseActions,
+      BaseFormActions,
     },
     data () {
       return {
@@ -62,7 +62,6 @@
         }
       },
       doCancel: function() {
-        console.log("doCancel")
         this.$router.push('/animals')
       }
     }
