@@ -27,6 +27,14 @@
                   :rules="nameRules"
                 ></v-text-field>
               </v-flex>
+              <v-flex xs12 sm6 md4>
+                <v-select
+                  multiple
+                  label="Skills"
+                  :items="skills"
+                  v-model="createdKeeper.skills"
+                />
+              </v-flex>
             </v-layout>
           </v-container>
           <small>*indicates required field</small>
@@ -46,7 +54,8 @@
     props: [
       'nameRules',
       'dialog',
-      'validated'
+      'validated',
+      'skills'
     ],
     data () {
       return {

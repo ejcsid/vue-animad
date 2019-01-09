@@ -57,7 +57,7 @@
     />
 
     <v-form ref="dialog" lazy-validation>
-      <KeeperDialog v-bind:nameRules='nameRules' v-bind:validated='validated' v-on:doCreate='doCreateKeeper($event)' v-on:doOpen='doOpenKeeper'/>
+      <KeeperDialog v-bind:nameRules='nameRules' v-bind:validated='validated' v-bind:skills='keeperSkills' v-on:doCreate='doCreateKeeper($event)' v-on:doOpen='doOpenKeeper'/>
     </v-form>
     <v-form>
       <v-flex xs12>
@@ -66,7 +66,7 @@
            v-for="item in keepers"
          >
            <v-list-tile-content>
-             <v-list-tile-title>{{ item.firstname }}, {{ item.lastname }}</v-list-tile-title>
+             <v-list-tile-title>{{ item.firstname }}, {{ item.lastname }}, {{ item.skills }}</v-list-tile-title>
            </v-list-tile-content>
            <v-list-tile-action>
              <v-flex>
@@ -102,7 +102,8 @@
           firstname: "Create",
           lastname: "Keeper"
         },
-        validated: false
+        validated: false,
+        keeperSkills: [ "cleaning", "feeding", "breeding", "cooking"]
       }
     },
     methods: {
