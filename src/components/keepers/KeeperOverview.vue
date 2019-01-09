@@ -20,7 +20,7 @@
            </v-list-tile-avatar>
            <v-list-tile-content>
              <v-list-tile-title>{{ item.firstname }}, {{ item.lastname }}</v-list-tile-title>
-             <v-list-tile-sub-title>{{ item.firstname }}, {{ item.lastname }}</v-list-tile-sub-title>
+             <v-list-tile-sub-title>{{ item.firstname }}, {{ item.lastname }}, {{ item.skills }}</v-list-tile-sub-title>
            </v-list-tile-content>
            <v-list-tile-action>
             <BaseListActions
