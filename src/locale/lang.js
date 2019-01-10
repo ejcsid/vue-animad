@@ -14,4 +14,24 @@ const i18n = new VueI18n({
     locale,
     messages
 })
+
+Vue.filter('translateArray', function(value, prefix){
+  // empty
+  if (!value) return ''
+
+  // correct setting for prfix
+  if (prefix && !prefix.endsWith('.')) prefix+='.'
+  if (!prefix) prefix=''
+
+  // not an array
+  if (!Array.isArray(value)) return i18n.t(prefix+value)
+
+  // loop array to translate each element in array
+  var translated = []
+  value.forEach(function(el) {
+    translated.push(i18n.t(prefix+el))
+  })
+  return translated
+})
+
 export default i18n

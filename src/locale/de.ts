@@ -13,8 +13,41 @@ export default {
     },
     noDataText: 'Keine Daten vorhanden',
     deleteDialog: {
-      deleteHeader: 'Wärter löschen',
-      deleteQuestion: 'Wollen Sie wirklich Wärter/in {0} löschen?',
+      deleteHeader: '{0} löschen',
+      deleteQuestion: 'Wollen Sie wirklich {0} {1} löschen?'
+    },
+    search: {
+      placeholder: "Suchen",
+      resultsText: {
+        noDataFound: "Keine Daten gefunden",
+        dataFound: "{0} Daten gefunden"
+      }
+    },
+    button: {
+      new: "Neu",
+      delete: "Löschen",
+      edit: "Bearbeiten",
+      detail: "Detail",
+      reload: "Laden",
+      ok: "OK",
+      cancel: "Abbrechen",
+      yes: "Ja",
+      no: "Nein"
+    },
+    gender: {
+      male: "männlich",
+      female: "weiblich"
+    },
+    keeper: {
+      entityName: 'Wärter',
+      entityNameFemale: 'Wärterin',
+      skills: {
+        cooking: "kochen",
+        feeding: "füttern",
+        breeding: "züchten",
+        cleaning: "putzen",
+        administrating: "verwalten",
+      }
     }
   }
 }

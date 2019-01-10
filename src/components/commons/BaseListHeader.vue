@@ -3,22 +3,22 @@
     <v-flex xs8>
       <v-text-field id="searchText"
         regular
-        placeholder="Search"
+        :placeholder="$vuetify.t('$vuetify.search.placeholder')"
         prepend-icon="search"
         clearable
         @input= "doFilter"
-        :success-messages=resultsText
+        :success-messages="$vuetify.t('$vuetify.search.resultsText.'+resultsText, [ rowCount ])"
         v-model="searchText"
       >
     </v-text-field>
     </v-flex>
     <v-flex xs4>
       <v-btn @click="doNew">
-        New
+        {{ $vuetify.t('$vuetify.button.new') }}
         <v-icon>add_circle</v-icon>
       </v-btn>
       <v-btn @click="doDelete">
-        Delete
+        {{ $vuetify.t('$vuetify.button.delete') }}
         <v-icon>delete</v-icon>
       </v-btn>
     </v-flex>
@@ -34,7 +34,8 @@
     },
     props: [
       'routerNew',
-      'resultsText'
+      'resultsText',
+      'rowCount'
     ],
     methods: {
       doFilter: function() {

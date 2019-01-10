@@ -8,7 +8,7 @@
       <BaseHeader icon='face' title='Overview Keepers'/>
 
       <v-container grid-list-md text-xs-center>
-        <BaseListHeader routerNew='keepers-create' v-bind:resultsText='resultsText' v-on:doFilter='doSearch($event)'/>
+        <BaseListHeader routerNew='keepers-create' v-bind:resultsText='resultsText' v-bind:rowCount='rowCount' v-on:doFilter='doSearch($event)'/>
 
         <v-flex xs12>
          <v-list two-line>
@@ -20,16 +20,25 @@
            </v-list-tile-avatar>
            <v-list-tile-content>
              <v-list-tile-title>{{ item.firstname }}, {{ item.lastname }}</v-list-tile-title>
-             <v-list-tile-sub-title>{{ item.firstname }}, {{ item.lastname }}, {{ item.skills }}</v-list-tile-sub-title>
+             <v-list-tile-sub-title>{{ item.firstname }}, {{ item.lastname }}, {{ item.skills | translateArray('$vuetify.keeper.skills') }}, {{ item.gender | translateArray('$vuetify.gender') }}</v-list-tile-sub-title>
            </v-list-tile-content>
            <v-list-tile-action>
-            <BaseListActions
-              v-bind:item='item'
-              routerDetail='keepers-detail'
-              :deleteHeader="$vuetify.t('$vuetify.deleteDialog.deleteHeader')"
-              v-on:doDelete='doDelete(item)'>
-                {{$vuetify.t('$vuetify.deleteDialog.deleteQuestion', [ item.lastname ])}}
-            </BaseListActions>
+              <BaseListActions
+                v-if="item.gender === 'female'"
+                v-bind:item='item'
+                routerDetail='keepers-detail'
+                :deleteHeader = "$vuetify.t('$vuetify.deleteDialog.deleteHeader', [ $vuetify.t('$vuetify.keeper.entityNameFemale') ])"
+                v-on:doDelete='doDelete(item)'>
+                  {{ $vuetify.t('$vuetify.deleteDialog.deleteQuestion', [ $vuetify.t('$vuetify.keeper.entityNameFemale'), item.lastname ]) }}
+              </BaseListActions>
+              <BaseListActions
+                v-else
+                v-bind:item='item'
+                routerDetail='keepers-detail'
+                :deleteHeader = "$vuetify.t('$vuetify.deleteDialog.deleteHeader', [ $vuetify.t('$vuetify.keeper.entityName') ])"
+                v-on:doDelete='doDelete(item)'>
+                  {{ $vuetify.t('$vuetify.deleteDialog.deleteQuestion', [ $vuetify.t('$vuetify.keeper.entityName'), item.lastname ]) }}
+              </BaseListActions>
            </v-list-tile-action>
          </v-list-tile>
          </v-list>
@@ -56,11 +65,12 @@
         searchText: "",
         deleteHeader: 'parent.$t($vuetify.deleteDialog.deleteHeader)',
         items: [
-          { id: 1, firstname: "Sarah", lastname: "Wiender", skills: ["cooking", "breeding"] },
-          { id: 2, firstname: "Tim", lastname: "Meltzer", skills: ["cleaning", "feeding"] },
-          { id: 3, firstname: "Alfons", lastname: "Beckschuh", skills: ["cooking"] }
+          { id: 1, firstname: "Sarah", lastname: "Wiender", skills: ["cooking", "breeding"], gender: "female" },
+          { id: 2, firstname: "Tim", lastname: "Meltzer", skills: ["cleaning", "feeding"], gender: "male" },
+          { id: 3, firstname: "Alfons", lastname: "Beckschuh", skills: ["cooking"], gender: "male"}
         ],
-        dialog: false
+        dialog: false,
+        entityName: "$vuetify.t('$vuetify.deleteDialog.deleteHeader')"
       }
     },
     computed: {
@@ -68,11 +78,19 @@
         return this.items.filter(item =>  item.firstname.toLowerCase().includes(this.searchText))
       },
       resultsText: function() {
-        if (this.filterdItems === undefined || this.filteredItems.length === 0) {
-          return "No Data found."
+        if (!this.filteredItems || this.filteredItems.length === 0) {
+          return "noDataFound"
         }
         else {
-          return this.filteredItems.length+" rows found."
+          return "dataFound"
+        }
+      },
+      rowCount: function() {
+        if (!this.filteredItems || this.filteredItems.length === 0) {
+          return 0
+        }
+        else {
+          return this.filteredItems.length
         }
       },
     },

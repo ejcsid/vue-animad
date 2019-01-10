@@ -8,7 +8,7 @@
       <BaseHeader icon='pets' title='Overview Animals'/>
 
       <v-container grid-list-md text-xs-center>
-        <BaseListHeader routerNew='animals-create' v-bind:resultsText='resultsText' v-on:doFilter='doSearch($event)'/>
+        <BaseListHeader routerNew='animals-create' v-bind:resultsText='resultsText' v-bind:rowCount='rowCount' v-on:doFilter='doSearch($event)'/>
 
         <v-flex xs12>
          <v-list two-line>
@@ -67,11 +67,19 @@
         return this.items.filter(item =>  item.name.toLowerCase().includes(this.searchText))
       },
       resultsText: function() {
-        if (this.filterdItems === undefined || this.filteredItems.length === 0) {
-          return "No Data found."
+        if (this.filteredItems === undefined || this.filteredItems.length === 0) {
+          return "noDataFound"
         }
         else {
-          return this.filteredItems.length+" rows found."
+          return "dataFound"
+        }
+      },
+      rowCount: function() {
+        if (!this.filteredItems || this.filteredItems.length === 0) {
+          return 0
+        }
+        else {
+          return this.filteredItems.length
         }
       },
     },

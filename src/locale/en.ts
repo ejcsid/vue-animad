@@ -13,8 +13,41 @@ export default {
     },
     noDataText: 'No data available',
     deleteDialog: {
-      deleteHeader: 'Delete Keeper',
-      deleteQuestion: 'Do you really want to delete keeper {0}?',
+      deleteHeader: 'Delete {0}',
+      deleteQuestion: 'Do you really want delete {0} {1}?'
+    },
+    search: {
+      placeholder: "Search",
+      resultsText: {
+        noDataFound: "No Data found",
+        dataFound: "{0} rows found"
+      }
+    },
+    button: {
+      new: "New",
+      delete: "Delete",
+      edit: "Edit",
+      detail: "Detail",
+      reload: "Reload",
+      ok: "OK",
+      cancel: "Cancel",
+      yes: "Yes",
+      no: "No"
+    },
+    gender: {
+      male: "male",
+      female: "female"
+    },
+    keeper: {
+      entityName: 'keeper',
+      entityNameFemale: 'keeper',
+      skills: {
+        cooking: "cooking",
+        feeding: "feeding",
+        breeding: "breeding",
+        cleaning: "cleaning",
+        administrating: "administrating",
+      }
     }
   }
 }
