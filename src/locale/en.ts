@@ -13,6 +13,7 @@ export default {
     },
     noDataText: 'No data available',
     deleteDialog: {
+      deleteHeader: 'Delete Keeper',
       deleteQuestion: 'Do you really want to delete keeper {0}?',
     }
   }

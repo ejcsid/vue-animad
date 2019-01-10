@@ -26,7 +26,7 @@
             <BaseListActions
               v-bind:item='item'
               routerDetail='keepers-detail'
-              deleteHeader='Delete Keeper?'
+              :deleteHeader="$vuetify.t('$vuetify.deleteDialog.deleteHeader')"
               v-on:doDelete='doDelete(item)'>
                 {{$vuetify.t('$vuetify.deleteDialog.deleteQuestion', [ item.lastname ])}}
             </BaseListActions>
@@ -54,6 +54,7 @@
       return {
         searchCount: 0,
         searchText: "",
+        deleteHeader: 'parent.$t($vuetify.deleteDialog.deleteHeader)',
         items: [
           { id: 1, firstname: "Sarah", lastname: "Wiender", skills: ["cooking", "breeding"] },
           { id: 2, firstname: "Tim", lastname: "Meltzer", skills: ["cleaning", "feeding"] },

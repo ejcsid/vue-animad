@@ -13,6 +13,7 @@ export default {
     },
     noDataText: 'Keine Daten vorhanden',
     deleteDialog: {
+      deleteHeader: 'Wärter löschen',
       deleteQuestion: 'Wollen Sie wirklich Wärter/in {0} löschen?',
     }
   }
